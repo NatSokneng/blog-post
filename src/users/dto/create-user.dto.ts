@@ -1,6 +1,8 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
-
-export class CreateUserDto {
+import { BeforeInsert } from "typeorm";
+import * as bcrypt from 'bcrypt';
+//import { BaseEntity } from 'src/generic/BaseEntity';
+export class CreateUserDto  {
   @IsNotEmpty()
   firstName: string;
 
@@ -10,7 +12,10 @@ export class CreateUserDto {
   @IsEmail()
   email: string;
 
-  @IsNotEmpty()
-  password: string;
+  @BeforeInsert()
+  public password: string;
+   async hashPassword() {
+      this.password = await bcrypt.hash(this.password, Number(process.env.HASH_SALT));
+   }
   
 }

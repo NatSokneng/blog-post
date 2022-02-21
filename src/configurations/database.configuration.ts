@@ -15,7 +15,10 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       database: configService.get('DB_NAME'),
       logging: configService.get('DB_LOGGING'),
       synchronize: false,
-      entities: [__dirname + '/**/*.entity{.ts,.js}']
+      entities: [
+        __dirname + '/**/*.entity{.ts,.js}',
+        'dist/**/*.entity.js'
+      ]
     };
   }
 }
