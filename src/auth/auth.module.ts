@@ -6,10 +6,8 @@ import { LocalStrategy } from './local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './jwt-auth.guard';
 import { UsersService } from 'src/users/users.service';
-import { AuthController } from './auths.contoller';
+import { AuthController } from './auth.contoller';
 
 @Module({
   imports: [
@@ -25,11 +23,7 @@ import { AuthController } from './auths.contoller';
     AuthService,
     LocalStrategy,
     JwtStrategy,
-    UsersService,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    }
+    UsersService
   ],
   exports: [AuthService],
 })

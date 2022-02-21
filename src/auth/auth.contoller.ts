@@ -11,7 +11,7 @@ export class AuthController {
     private readonly userService: UsersService
   ) {}
 
-  @Post('register')
+  @Post('v1/register')
   async createLogin(@Body() createUserDto: CreateUserDto) {
     const user = await this.userService.create(createUserDto);
     return {
@@ -21,16 +21,15 @@ export class AuthController {
     };
   }
   
-  // @UseGuards(LocalAuthGuard)
-  // @Post('v1/login')
-  // async login(@Request() req) {
-  //   return this.authService.login(req.user);
-  // }
+  @Post('v1/login')
+  async login(@Request() req) {
+    return this.authService.login(req.user);
+  }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Get('v1/profile')
-  // getProfile(@Request() req) {
-  //   return req.user;
-  // }
+  @UseGuards(JwtAuthGuard)
+  @Get('v1/profile')
+  getProfile(@Request() req) {
+    return req.user;
+  }
 
 }

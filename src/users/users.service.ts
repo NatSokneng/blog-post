@@ -14,7 +14,7 @@ async create(createUserDto: CreateUserDto) {
   userEntity.firstName = createUserDto.firstName;
   userEntity.lastName = createUserDto.lastName;
   userEntity.email = createUserDto.email;
-  userEntity.hashPassword = createUserDto.hashPassword;
+  userEntity.password = createUserDto.password;
   const user = await this.userRepository.save(userEntity);
   return user;
 }
