@@ -11,41 +11,28 @@ export class AuthService {
     ) 
     {}
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOneByEmail(email)
-    if (user && user.password == pass) {
-      const { password, ...result } = user;
-      return result;
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.usersService.findOneByEmail(email);
+    if (!(await user?.validatePassword(password))) {
+      throw new UnauthorizedException();
     }
-    return null;
+    return user;
   }
 
-  // async validateUser(authLoginDto: AuthLoginDto): Promise<UserEntity> {
-  //   const { email, password } = authLoginDto;
-  //   const user = await this.usersService.findOneByEmail(authLoginDto);
-  //   if (!(await user?.validatePassword(password))) {
-  //     throw new UnauthorizedException();
-  //   }
-  //   return user;
-  // }
+  async login(authLoginDto: AuthLoginDto) {
+    const {
+      email,
+      password
+    } = authLoginDto;
+    const user = await this.validateUser(email, password)
 
-  async login(user: any) {
-    const payload = { email: user.email, sub: user.userId };
+    const payload = {
+      userId: user.id
+    };
+
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
-
-  // async login(authLoginDto: AuthLoginDto) {
-  //   const user = await this.validateUser(authLoginDto)
-
-  //   const payload = {
-  //     userId: user.id
-  //   };
-
-  //   return {
-  //     access_token: this.jwtService.sign(payload),
-  //   };
-  // }
 
 }

@@ -35,7 +35,6 @@ export class AuthController {
       login
     };
   }
-
   // @UseGuards(JwtAuthGuard)
   // @Post('v1/log/out')
   // async logOut(@Req() request: AuthLoginDto, @Res() response: Response) {

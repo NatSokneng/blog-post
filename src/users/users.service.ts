@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, Request, Response } from '@nestjs/common';
 import { UserRepository } from './repositories/user.repository';
 import { UserEntity } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -26,9 +26,5 @@ async create(createUserDto: CreateUserDto) {
     return await this.userRepository.findOne(id);
   }
   
-  // public getCookieForLogOut() {
-  //   return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
-  // }
-
 }
 
