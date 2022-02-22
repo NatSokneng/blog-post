@@ -20,12 +20,4 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     return user;
   }
 
-  // async validate(createUserDto: AuthLoginDto){
-  //   const user = await this.authService.validateUser(createUserDto);
-  //   if (!user) {
-  //     throw new UnauthorizedException();
-  //   }
-  //   return user;
-  // }
-
 }
