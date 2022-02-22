@@ -1,7 +1,6 @@
 import { Entity, Column, BeforeInsert } from "typeorm";
 import { BaseEntity } from "../../generic/BaseEntity";
 import * as bcrypt from 'bcrypt';
-
 @Entity('User')
 export class UserEntity extends BaseEntity {
 

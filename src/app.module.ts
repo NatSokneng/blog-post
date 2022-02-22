@@ -6,7 +6,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmConfigService } from './configurations/database.configuration';
 import { AuthController } from './auth/auth.contoller';
 import { UsersService } from './users/users.service';
-
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
