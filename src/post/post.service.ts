@@ -1,26 +1,33 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-
+import { Injectable } from "@nestjs/common";
+import { CategoryRepository } from "src/categories/reposities/category.reposity";
+import { CreatePostDto } from "./dto/create-post.dto";
+import { PostRepository } from "./repositories/post.repository";
+import { PostEntity } from "./entities/post.entity";
 @Injectable()
 export class PostService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+  constructor(
+    private postRepository: PostRepository,
+    private categoryRepository: CategoryRepository
+  ) {}
+
+  async create(createPostDto: CreatePostDto) {
+    const postEntity = new PostEntity();
+    postEntity.title = createPostDto.title;
+    if (createPostDto.categoryIds) {
+      const categories = await this.categoryRepository.findByIds(
+        createPostDto.categoryIds
+      );
+      postEntity.categories = categories;
+    }
+    const post = await this.postRepository.save(postEntity);
+    return post;
   }
 
-  findAll() {
-    return `This action returns all post`;
+  async findAll() {
+    return await this.postRepository.getAllPost();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
-  }
-
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async findOne(id: number) {
+    return await this.postRepository.getOneDetailByPostId(id);
   }
 }

@@ -1,18 +1,16 @@
 import { CategoryEntity } from "src/categories/entities/category.entity";
 import { TagEntity } from "src/tag/entities/tag.entity";
-import { Entity, Column, ManyToMany, OneToMany } from "typeorm";
+import { Entity, Column, ManyToMany, OneToMany, JoinTable } from "typeorm";
 import { BaseEntity } from "../../generic/BaseEntity";
-@Entity('Post')
+@Entity("Post")
 export class PostEntity extends BaseEntity {
+  @Column()
+  public title: string;
 
-    @Column()
-    public title: string;
+  @ManyToMany(() => CategoryEntity, category => category.posts)
+  @JoinTable()
+  categories: CategoryEntity[];
 
-    @ManyToMany(() => CategoryEntity, category => category.post)
-    category: CategoryEntity[];
-
-    @OneToMany(() => TagEntity, tag => tag.post)
-    tag: TagEntity;
-
+  @OneToMany(() => TagEntity, tag => tag.posts)
+  tags: TagEntity;
 }
-

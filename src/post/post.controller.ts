@@ -1,34 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PostService } from './post.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-
-@Controller('post')
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpStatus,
+} from "@nestjs/common";
+import { PostService } from "./post.service";
+import { CreatePostDto } from "./dto/create-post.dto";
+@Controller("post")
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postService.create(createPostDto);
+  async create(@Body() createPostDto: CreatePostDto) {
+    const post = await this.postService.create(createPostDto);
+    return {
+      statusCode: HttpStatus.OK,
+      message: "Post is successfully",
+      post,
+    };
   }
 
   @Get()
-  findAll() {
-    return this.postService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(+id, updatePostDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postService.remove(+id);
+  async findAll() {
+    const allPosts = await this.postService.findAll()
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'All post ',
+      allPosts
+    };
   }
 }
