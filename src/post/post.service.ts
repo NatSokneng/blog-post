@@ -27,18 +27,24 @@ export class PostService {
   }
 
   async DetailPost(id: number) {
-    const DetailPost = await this.postRepository.getOneDetailByPostId(id);
-    if (!DetailPost) {
-      throw new NotFoundException(`Post ID ${id} is not found`);
+    const detailPost = await this.postRepository.getOneDetailByPostId(id);
+    if (!detailPost) {
+      throw new NotFoundException(`Post ID ${id} is not exist`);
     }
-    return this.postRepository.save(DetailPost);
+    return await detailPost;
   }
 
   async deletePost(id: number) {
-    return await this.postRepository.delete({id});
+    const deletePost = await this.postRepository.delete({ id });
+    if (!deletePost.affected) {
+      throw new NotFoundException(`Post ID ${id} not exist`);
+    }
   }
-  async updatePost(id: number, updatePostDto: UpdatePostDto){
-     await this.postRepository.update({id}, updatePostDto);
-     return await this.postRepository.findOne({id});
+  async updatePost(id: number, updatePostDto: UpdatePostDto) {
+    const updatePost = await this.postRepository.update({ id }, updatePostDto);
+    await this.postRepository.findOne({ id });
+    if (!updatePost.affected) {
+      throw new NotFoundException(`Post ID ${id} not exist`);
+    }
   }
 }
