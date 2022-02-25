@@ -7,14 +7,17 @@ import {
   Param,
   Delete,
   Patch,
+  UseGuards,
 } from "@nestjs/common";
 import { PostService } from "./post.service";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("post")
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createPostDto: CreatePostDto) {
     const post = await this.postService.create(createPostDto);
@@ -25,6 +28,7 @@ export class PostController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll() {
     const allPosts = await this.postService.findAll();
@@ -35,6 +39,7 @@ export class PostController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(":id")
   async findById(@Param("id") id: string) {
     const userId = await this.postService.DetailPost(+id);
@@ -45,6 +50,7 @@ export class PostController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(":id")
   async deletePost(@Param("id") id: string) {
     const deletePost = await this.postService.deletePost(+id);
@@ -55,8 +61,12 @@ export class PostController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
-  async updatePost(@Param("id") id: string, @Body() updatePostDto: UpdatePostDto){
+  async updatePost(
+    @Param("id") id: string,
+    @Body() updatePostDto: UpdatePostDto
+  ) {
     const updatePost = await this.postService.updatePost(+id, updatePostDto);
     return {
       statusCode: HttpStatus.OK,
