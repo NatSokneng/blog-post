@@ -7,11 +7,11 @@ export class PostTag1645590234104 implements MigrationInterface {
         name: "PostTag",
         columns: [
           {
-            name: "postsId",
+            name: "postId",
             type: "int",
           },
           {
-            name: "tagsId",
+            name: "tagId",
             type: "int",
           },
         ],

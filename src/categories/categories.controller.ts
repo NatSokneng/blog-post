@@ -27,25 +27,42 @@ export class CategoriesController {
   }
 
   @Get()
-  findAll() {
-    return this.categoriesService.findAll();
+  async findAll() {
+    const allCategories = await this.categoriesService.allCategories()
+    return {
+      statusCode: HttpStatus.OK,
+      message: "All categories is ...",
+      allCategories
+    }
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.categoriesService.findOne(+id);
+  async findOne(@Param("id") id: string) {
+    const categoryId = await this.categoriesService.categoriesDetail(+id);
+    return {
+      statusCode: HttpStatus.OK,
+      message: "Category ID is...",
+      categoryId
+    }
   }
 
   @Patch(":id")
-  update(
-    @Param("id") id: string,
-    @Body() updateCategoryDto: UpdateCategoryDto
-  ) {
-    return this.categoriesService.update(+id, updateCategoryDto);
+  async update(@Param("id") id: string,  @Body() updateCategoryDto: UpdateCategoryDto){
+    const update = await this.categoriesService.updateCategory(+id, updateCategoryDto);
+    return {
+      statusCode: HttpStatus.OK,
+      message: "Category update is successfully",
+      update
+    };
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.categoriesService.remove(+id);
+  async deleteCategory(@Param("id") id: string) {
+    const deleteCategory = await this.categoriesService.deleteCategory(+id);
+    return {
+      statusCode: HttpStatus.OK,
+      message: "Delete category is successfully",
+      deleteCategory,
+    };
   }
 }

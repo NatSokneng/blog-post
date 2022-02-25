@@ -4,26 +4,30 @@ import { UpdateCategoryDto } from "./dto/update-category.dto";
 import { CategoryRepository } from "./reposities/category.reposity";
 @Injectable()
 export class CategoriesService {
-  constructor(private categoryRepository: CategoryRepository) {}
+  constructor(
+    private readonly categoryRepository: CategoryRepository
+    ) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
     const category = await this.categoryRepository.save(createCategoryDto);
     return category;
   }
 
-  findAll() {
-    return `This action returns all categories`;
+   async allCategories() {
+    return await this.categoryRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async categoriesDetail(id: number) {
+   return await this.categoryRepository.findOne({where: {id:id}});
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  async updateCategory(id: number, updateCategoryDto: UpdateCategoryDto) {
+    await this.categoryRepository.update({ id }, updateCategoryDto);
+    return await this.categoryRepository.findOne({ id });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async deleteCategory(id: number) {
+   const deleteCategory = await this.categoryRepository.delete({ id });
+   return deleteCategory;
   }
 }

@@ -7,11 +7,11 @@ export class CategoryPost1645589701241 implements MigrationInterface {
         name: "CategoryPost",
         columns: [
           {
-            name: "categoriesId",
+            name: "categoryId",
             type: "int",
           },
           {
-            name: "postsId",
+            name: "postId",
             type: "int",
           },
         ],

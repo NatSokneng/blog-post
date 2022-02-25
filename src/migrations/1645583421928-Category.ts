@@ -16,6 +16,7 @@ export class Category1645583421928 implements MigrationInterface {
           {
             name: "name",
             type: "varchar(200)",
+            isNullable: false
           },
           {
             name: "description",

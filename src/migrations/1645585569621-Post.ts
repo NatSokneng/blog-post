@@ -15,7 +15,7 @@ export class Post1645585569621 implements MigrationInterface {
           },
           {
             name: "title",
-            type: "varchar(200)",
+            type: "varchar(200)"
           },
           {
             name: "createdAt",

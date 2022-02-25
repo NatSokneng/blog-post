@@ -1,3 +1,4 @@
+import { type } from "os";
 import { PostEntity } from "src/post/entities/post.entity";
 import { Entity, Column, ManyToMany } from "typeorm";
 import { BaseEntity } from "../../generic/BaseEntity";
@@ -10,6 +11,6 @@ export class CategoryEntity extends BaseEntity {
   @Column()
   public description: string;
 
-  @ManyToMany(() => PostEntity, post => post.categories)
+  @ManyToMany(type => PostEntity, post => post.categories)
   posts: PostEntity[];
 }
