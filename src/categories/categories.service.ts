@@ -13,7 +13,11 @@ export class CategoriesService {
   }
 
   async allCategories() {
-    return await this.categoryRepository.find();
+    const categories = await this.categoryRepository.find();
+    if(!categories) {
+      throw new NotFoundException(`Not found`);
+    }
+    return categories;
   }
 
   async categoriesDetail(id: number) {
@@ -21,7 +25,7 @@ export class CategoriesService {
       where: { id: id },
     });
     if (!categoriesDetail) {
-      throw new NotFoundException(`Category ID ${id} not exist`);
+      throw new NotFoundException(`ID ${id} not exist`);
     }
     // return this.categoryRepository.save(categoriesDetail);
     return await categoriesDetail;
@@ -34,14 +38,14 @@ export class CategoriesService {
     );
     await this.categoryRepository.findOne({ id });
     if (!updateCategory.affected) {
-      throw new NotFoundException(`Post ID ${id} not exist`);
+      throw new NotFoundException(`ID ${id} not exist`);
     }
   }
 
   async deleteCategory(id: number) {
     const deleteCategory = await this.categoryRepository.delete({ id });
     if (!deleteCategory.affected) {
-      throw new NotFoundException(`Category ID ${id} not exist`);
+      throw new NotFoundException(`ID ${id} not exist`);
     }
   }
  

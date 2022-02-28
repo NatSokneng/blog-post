@@ -23,7 +23,7 @@ export class CategoriesController {
     const categories = await this.categoriesService.create(createCategoryDto);
     return {
       statusCode: HttpStatus.OK,
-      message: "Category create is successfully",
+      message: "Created is successfully",
       categories,
     };
   }
@@ -56,7 +56,7 @@ export class CategoriesController {
     const update = await this.categoriesService.updateCategory(+id, updateCategoryDto);
     return {
       statusCode: HttpStatus.OK,
-      message: "Category update is successfully",
+      message: "Updated is successfully",
       update
     };
   }
@@ -67,7 +67,7 @@ export class CategoriesController {
     const deleteCategory = await this.categoriesService.deleteCategory(+id);
     return {
       statusCode: HttpStatus.OK,
-      message: "Delete category is successfully",
+      message: "Deleted is successfully",
       deleteCategory,
     };
   }

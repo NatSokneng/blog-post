@@ -23,7 +23,7 @@ export class PostController {
     const post = await this.postService.create(createPostDto);
     return {
       statusCode: HttpStatus.OK,
-      message: "Post is successfully",
+      message: "Created is successfully",
       post,
     };
   }
@@ -56,7 +56,7 @@ export class PostController {
     const deletePost = await this.postService.deletePost(+id);
     return {
       statusCode: HttpStatus.OK,
-      message: "Post Delete is successfully",
+      message: "Deleted is successfully",
       deletePost,
     };
   }
@@ -70,7 +70,7 @@ export class PostController {
     const updatePost = await this.postService.updatePost(+id, updatePostDto);
     return {
       statusCode: HttpStatus.OK,
-      message: "Post update is successfully",
+      message: "Updated is successfully",
       updatePost,
     };
   }
