@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { UsersService } from 'src/users/users.service';
+/*import { SessionSerializer } from './session.serializer';*/
 @Module({
   imports: [
     UsersModule,
@@ -21,6 +22,7 @@ import { UsersService } from 'src/users/users.service';
     LocalStrategy,
     JwtStrategy,
     UsersService,
+    /*SessionSerializer*/
   ],
   exports: [AuthService],
 })

@@ -10,6 +10,8 @@ import { UsersService } from "./users/users.service";
 import { CategoriesModule } from "./categories/categories.module";
 import { PostModule } from "./post/post.module";
 import { TagModule } from "./tag/tag.module";
+import { NewUserModule } from './new-user/new-user.module';
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -21,6 +23,7 @@ import { TagModule } from "./tag/tag.module";
     CategoriesModule,
     PostModule,
     TagModule,
+    NewUserModule,
   ],
   controllers: [AuthController, UsersController],
   providers: [UsersService],

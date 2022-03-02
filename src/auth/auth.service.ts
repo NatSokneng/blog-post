@@ -13,7 +13,7 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOneByEmail(email);
     if (!user) {
-      throw new UnauthorizedException("Email is invalid");
+      throw new UnauthorizedException("Account is invalid");
     }
     const matchPassword = await user.validatePassword(password);
     if (!matchPassword) {
